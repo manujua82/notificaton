@@ -29,10 +29,10 @@ export function notification(request, response){
     });
 }
 
-export function sendNotification(request, response) {
-    sendPushNotification(appConfig.channelUri, appConfig.bearerToken);
-    return response.json({
-        channelUri: appConfig.channelUri,
-        token: appConfig.bearerToken
-    });
-}
+// export function sendNotification(request, response) {
+//     sendPushNotification(appConfig.channelUri, appConfig.bearerToken);
+//     return response.json({
+//         channelUri: appConfig.channelUri,
+//         token: appConfig.bearerToken
+//     });
+// }

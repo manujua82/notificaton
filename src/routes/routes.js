@@ -7,6 +7,6 @@ export function routes(app) {
     app.route('/sendnotification')
     .post(notification);
 
-    app.route('/sendnotification')
-    .post(sendNotification);
+    // app.route('/sendnotification')
+    // .post(sendNotification);
 }
