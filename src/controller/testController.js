@@ -2,8 +2,9 @@
 const appConfig = require('../models/appConfig');
 
 export function roboxTest(request, response) {
-    response.json({ name: `Juan`, age: './15' });
+    response.json({ channelUri: `appConfig.channelUri` });
     console.log(`channelUri: ${appConfig.channelUri}`);
+    console.log(`bearerToken: ${appConfig.bearerToken}`);
 };
 
 export function notification(request, response){
