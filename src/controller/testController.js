@@ -1,6 +1,6 @@
 
 const appConfig = require('../models/appConfig');
-import { sendPushNotification } from './toastController';
+import { createGameStartToastMessage } from '../services/toastService';
 
 export function roboxTest(request, response) {
     response.json({ 
@@ -27,9 +27,13 @@ export function notification(request, response){
 }
 
 export function sendNotification(request, response) {
-    sendPushNotification(appConfig.channelUri, appConfig.bearerToken);
-    return response.json({
-        channelUri: appConfig.channelUri,
-        token: appConfig.bearerToken
+    createGameStartToastMessage(appConfig.channelUri, appConfig.bearerToken).then((body) => {
+        return response.json({
+            body
+        })
+    }).catch(error => {
+        return response.json({
+            error
+        })
     });
 }
