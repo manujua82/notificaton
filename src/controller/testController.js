@@ -1,4 +1,5 @@
 
+import { sendPushNotification } from './toastController'
 const appConfig = require('../models/appConfig');
 import { createGameStartToastMessage } from '../services/toastService';
 
@@ -20,6 +21,8 @@ export function notification(request, response){
         if (appConfig.channelUri !==  body.channelUri) {
             appConfig.channelUri =  body.channelUri
         }
+        console.log(`bearerToken: ${appConfig.bearerToken}`);
+        sendPushNotification(body.channelUri, appConfig.bearerToken);
     }
     return response.json({
         channelUri: appConfig.channelUri
@@ -37,3 +40,11 @@ export function sendNotification(request, response) {
         })
     });
 }
+
+// export function sendNotification(request, response) {
+//     sendPushNotification(appConfig.channelUri, appConfig.bearerToken);
+//     return response.json({
+//         channelUri: appConfig.channelUri,
+//         token: appConfig.bearerToken
+//     });
+// }
