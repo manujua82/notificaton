@@ -1,4 +1,4 @@
-import { roboxTest, notification } from '../controller/testController';
+import { roboxTest, notification, sendNotification } from '../controller/testController';
 
 export function routes(app) {
     app.route('/test')
@@ -6,4 +6,7 @@ export function routes(app) {
 
     app.route('/sendnotification')
     .post(notification);
+
+    app.route('/sendnotification')
+    .post(sendNotification);
 }

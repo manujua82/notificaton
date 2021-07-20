@@ -3,7 +3,7 @@ const https = require('https');
 // TODO: Need to dynamically generate this.
 const tmpXml = "<?xml version=\"1.0\" encoding=\"utf - 8\"?><toast><visual><binding template=\"ToastText01\"><text id=\"1\">Test message</text></binding></visual></toast>"
 
-export default function sendPushNotification(channelUri, bearerToken) {
+export function sendPushNotification(channelUri, bearerToken) {
     // TODO: dynamically create and format. (This is low priority for the demo 'Nice to have').
     console.log(channelUri);
     console.log(bearerToken);
