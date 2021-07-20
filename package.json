@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "main": "./src/index.js",
+  "engines": {
+    "node": "12.11.1"
+  },
   "scripts": {
     "clean": "rm -rf build && mkdir build",
     "build-babel": "babel -d ./build ./src -s",

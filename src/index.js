@@ -15,7 +15,7 @@ app.use(cors());
 routes(app);
 
 
-app.set("port", port)
-app.listen( () => {
+// app.set("port", port)
+app.listen( port, '0.0.0.0', () => {
     console.log(`your server is running on port ${port}`);
 });
