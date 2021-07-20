@@ -4,10 +4,10 @@ import { routes } from './routes/routes';
 import path from 'path';
 import cors from 'cors';
 
-const result = dotenv.config({path: __dirname + '/.env'});
-if (result.error) {
-    console.log(result.error)
-}
+// const result = dotenv.config({path: __dirname + '/.env'});
+// if (result.error) {
+//     console.log(result.error)
+// }
 
 const app = express();
 const port = process.env.PORT || 3000;
