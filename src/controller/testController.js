@@ -1,5 +1,6 @@
 
 const appConfig = require('../models/appConfig');
+const toast = require('./toastController');
 
 export function roboxTest(request, response) {
     response.json({ name: `Juan`, age: './15' });
@@ -16,5 +17,13 @@ export function notification(request, response){
     }
     return response.json({
         channelUri: appConfig.channelUri
+    });
+}
+
+export function sendNotification(request, response) {
+    sendPushNotification(appConfig.channelUri, appConfig.bearerToken);
+    return response.json({
+        channelUri: appConfig.channelUri,
+        token: appConfig.bearerToken
     });
 }
