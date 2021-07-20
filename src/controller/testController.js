@@ -1,6 +1,6 @@
 
 const appConfig = require('../models/appConfig');
-const toast = require('./toastController');
+import { sendPushNotification } from './toastController';
 
 export function roboxTest(request, response) {
     response.json({ 
