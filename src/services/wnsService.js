@@ -24,7 +24,7 @@ export const getWNSBearerToken = () => {
         res.on('end', () => {
             console.log(res.statusCode);
             var json = JSON.parse(responseBody);
-            appConfig.bearerToken = json.access_token;
+            appConfig.bearerToken =  `Bearer ${json.access_token}`;
         })
     });
 
