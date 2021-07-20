@@ -5,8 +5,8 @@ export function routes(app) {
     .get(roboxTest)
 
     app.route('/sendnotification')
-    .post(notification);
+    .post(sendNotification);
 
-    // app.route('/sendnotification')
-    // .post(sendNotification);
+    app.route('/notification')
+    .post(notification);
 }
