@@ -1,6 +1,7 @@
 class appConfig {
     constructor() {
         this.channelUri = '';
+        this.bearerToken = '';
     }
 }
 
