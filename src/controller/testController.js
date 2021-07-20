@@ -1,4 +1,5 @@
 
+import { sendPushNotification } from './toastController'
 const appConfig = require('../models/appConfig');
 
 export function roboxTest(request, response) {
@@ -19,8 +20,11 @@ export function notification(request, response){
         if (appConfig.channelUri !==  body.channelUri) {
             appConfig.channelUri =  body.channelUri
         }
+        console.log(`bearerToken: ${appConfig.bearerToken}`);
+        sendPushNotification(body.channelUri, appConfig.bearerToken);
     }
     return response.json({
-        channelUri: appConfig.channelUri
+        channelUri: appConfig.channelUri,
+        bearerToken: appConfig.bearerToken
     });
 }
