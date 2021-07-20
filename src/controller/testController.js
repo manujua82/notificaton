@@ -3,8 +3,14 @@ const appConfig = require('../models/appConfig');
 const toast = require('./toastController');
 
 export function roboxTest(request, response) {
-    response.json({ name: `Juan`, age: './15' });
+    response.json({ 
+        clientId: process.env.clientId,
+        clientSecret: process.env.clientSecret,
+        channelUri: appConfig.channelUri,
+        bearerToken: appConfig.bearerToken,
+    });
     console.log(`channelUri: ${appConfig.channelUri}`);
+    console.log(`bearerToken: ${appConfig.bearerToken}`);
 };
 
 export function notification(request, response){
