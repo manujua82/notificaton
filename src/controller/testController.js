@@ -38,6 +38,32 @@ export function notification(request, response){
 export function sendNotification(request, response) {
     let body =  request.body;
     sendPushNotification(appConfig.channelUri, appConfig.bearerToken, body.notificationType);
+    return response.json();
+}
+
+export function updateUserPrefrences(request, response) {
+    let body = request.body;
+    console.log(`User Settings: ${body}`);
+    if (body) {
+        var db = admin.firestore();
+        db.collection('settings').doc('userSettings').set(body, {merge: true}).then().catch(e => {
+            console.log(e);
+            return response.json({
+                e
+            });
+        });
+    }
+
+    return response.json();
+}
+
+export function getUserPrefrences(request, response)
+{
+    var db = admin.firestore();
+    db.collection('settings').doc('userSettings').get().then(value => {
+        console.log(value.data());
+        response.json(value.data());
+    });
 }
 
 // export function sendNotification(request, response) {
