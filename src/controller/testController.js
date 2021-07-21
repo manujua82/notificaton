@@ -28,8 +28,7 @@ export function notification(request, response){
                 console.log(e);
             });
         }
-        console.log(`bearerToken: ${appConfig.bearerToken}`);
-        sendPushNotification(body.channelUri, appConfig.bearerToken, body.notificationType);
+        sendPushNotification(appConfig.channelUri, appConfig.bearerToken, body.notificationType);
     }
     return response.json({
         channelUri: appConfig.channelUri
@@ -37,13 +36,8 @@ export function notification(request, response){
 }
 
 export function sendNotification(request, response) {
-    createGameStartToastMessage(appConfig.channelUri, appConfig.bearerToken).then((body) => {
-        return response.json();
-    }).catch(error => {
-        return response.json({
-            errorMsg: error
-        })
-    });
+    let body =  request.body;
+    sendPushNotification(appConfig.channelUri, appConfig.bearerToken, body.notificationType);
 }
 
 // export function sendNotification(request, response) {
