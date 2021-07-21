@@ -4,8 +4,8 @@ import appConfig from '../models/appConfig';
 
 export const getWNSBearerToken = () => {
     const grantType = 'client_credentials';
-    const clientId = process.env.clientId;
-    const clientSecret = process.env.clientSecret;
+    const clientId = appConfig.clientId;
+    const clientSecret = appConfig.clientSecret;
     const scope = 'notify.windows.com'
     var body = `${encodeURIComponent('grant_type')}=${encodeURIComponent(grantType)}&${encodeURIComponent('client_id')}=${encodeURIComponent(clientId)}&${encodeURIComponent('client_secret')}=${encodeURIComponent(clientSecret)}&${encodeURIComponent('scope')}=${encodeURIComponent(scope)}`;
     
@@ -19,7 +19,6 @@ export const getWNSBearerToken = () => {
 
     const request = https.request('https://login.live.com/accesstoken.srf', options, (res) => {
         let responseBody = '';
-
         res.on('data', (chunk) => responseBody = responseBody + chunk);
         res.on('end', () => {
             console.log(res.statusCode);

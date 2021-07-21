@@ -27,7 +27,14 @@ export const createGameStartToastMessage = (channelUri, bearerToken) => {
 
             res.on('end', () => {
                 try {
-                    body = JSON.parse(Buffer.concat(body).toString());
+                    if (!body)
+                    {
+                        body = JSON.parse(Buffer.concat(body).toString());
+                    }
+                    else
+                    {
+                        body = res.statusCode
+                    }
                 } catch (e) {
                     reject(e);
                 }
