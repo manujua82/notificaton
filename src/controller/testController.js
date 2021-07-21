@@ -24,7 +24,7 @@ export function notification(request, response){
             var db = admin.firestore();
             db.collection('settings').doc('applicationSettings').set({
                 channelUri: appConfig.channelUri
-            }).then().catch(e => {
+            }, {merge: true}).then().catch(e => {
                 console.log(e);
             });
         }
