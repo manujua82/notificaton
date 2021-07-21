@@ -5,9 +5,10 @@ import { getWNSBearerToken } from './services/wnsService';
 import path from 'path';
 import cors from 'cors';
 const admin = require('firebase-admin');
-// TODO store in env variable.
-const serviceAccount = require('D:/Projects/Work/hackathon/notificaton/src/robox-8fa7c-4a8bb587e43c.json')
+const dotenv = require('dotenv');
 const appConfig = require('./models/appConfig');
+
+dotenv.config();
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -25,18 +26,15 @@ app.listen( port, '0.0.0.0', () => {
     // getWNSBearerToken();
 });
 
-initializeFirebase();
+// nitializeFirebase();
 
 
 function initializeFirebase() {
     admin.initializeApp({
-        credential: admin.credential.cert(serviceAccount)
+        credential: admin.credential.cert(process.env.GOOGLE_FIRESTORE)
     });
 
     const db = admin.firestore();
-
-    // test:
-    const docRef = db.collection('settings').doc('applicationSettings');
 
     db.collection('settings').doc('applicationSettings').get().then(value => {
         if (!appConfig.channelUri) {
