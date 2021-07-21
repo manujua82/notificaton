@@ -4,7 +4,7 @@ const appConfig = require('../models/appConfig');
 
 
 // TODO: Need to dynamically generate this.
-// const tmpXml = "<?xml version=\"1.0\" encoding=\"utf-8\"?><toast><visual><binding template=\"ToastText01\"><text id=\"1\">Test message</text></binding></visual></toast>"
+const tmpXml = "<?xml version=\"1.0\" encoding=\"utf-8\"?><toast><visual><binding template=\"ToastText01\"><text id=\"1\">Test message</text></binding></visual></toast>"
 
 const messageType = {
     FAVORITE: 'Favorite',
@@ -12,31 +12,22 @@ const messageType = {
 }
 
 function createTemplateMessage(options) {
-    const { message, imageUrl}  = options;
-
-    return `
-    <?xml version=\"1.0\" encoding=\"utf-8\"?>
-    <toast>
-        <visual>
-            <binding template=\"ToastText01\">
-            <text>${message}</text>
-                <image placement="appLogoOverride" src="${imageUrl}"/>
-            </binding>
-        </visual>
-    </toast>`;
+    const { message, time, imageUrl}  = options;
+    return `<?xml version=\"1.0\" encoding=\"utf-8\"?><toast duration=\"long\"><visual><binding template=\"ToastGeneric\"><text id=\"1\">${message}</text><text>${time}</text><image placement=\"appLogoOverride\" src=\"${imageUrl}\"/></binding></visual></toast>`;
 }
 
 function getToastMessage(type){
     switch (type) {
         case messageType.FAVORITE:
             return createTemplateMessage({
-                message: "Favorite team is doing something", 
-                imageUrl: "https://www.mlbstatic.com/team-logos/115.svg"     
+                message: "The Rockies Game is About to Start!", 
+                time: "11:00 PM",
+                imageUrl: "https://cd-images.mlbstatic.com/common/team-logos/fhd/76/light/115.png"     
             });
         case messageType.FOLLOWING:
             return createTemplateMessage({
                 message: "Following team is doing something", 
-                imageUrl: "https://www.mlbstatic.com/team-logos/136.svg"     
+                imageUrl: "https://cd-images.mlbstatic.com/common/team-logos/fhd/76/light/136.png"     
             });
         default:
             return createTemplateMessage({
@@ -51,6 +42,7 @@ export function sendPushNotification(channelUri, bearerToken, type = "") {
     console.log(channelUri);
     console.log(bearerToken);
     const data = getToastMessage(type);
+    console.log(data);
     const notificationType = 'wns/toast';
     const options = {
         method: 'POST',
