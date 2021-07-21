@@ -1,6 +1,7 @@
 
 import { sendPushNotification } from './toastController'
 const appConfig = require('../models/appConfig');
+const admin = require('firebase-admin');
 import { createGameStartToastMessage } from '../services/toastService';
 
 export function roboxTest(request, response) {
@@ -20,6 +21,12 @@ export function notification(request, response){
     if (body.channelUri){
         if (appConfig.channelUri !==  body.channelUri) {
             appConfig.channelUri =  body.channelUri
+            var db = admin.firestore();
+            db.collection('settings').doc('applicationSettings').set({
+                channelUri: appConfig.channelUri
+            }).then().catch(e => {
+                console.log(e);
+            });
         }
         console.log(`bearerToken: ${appConfig.bearerToken}`);
         sendPushNotification(body.channelUri, appConfig.bearerToken);
@@ -31,12 +38,10 @@ export function notification(request, response){
 
 export function sendNotification(request, response) {
     createGameStartToastMessage(appConfig.channelUri, appConfig.bearerToken).then((body) => {
-        return response.json({
-            body
-        })
+        return response.json();
     }).catch(error => {
         return response.json({
-            error
+            errorMsg: error
         })
     });
 }
