@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <title>Hello, world!</title>
+  </head>
+  <body>
+    <div class="container"  style="padding:40px;">
+      <h1>ROBOX - Send Push Notification</h1>
+        
+      <div class="row">
+        <div class="col-sm">
+          <select id="notificationType" class="form-select" aria-label="Default select example">
+            <option selected>Select Notification Type</option>
+            <option value="Favorite">Favorite</option>
+            <option value="Following">Following</option>
+          </select>
+        </div>
+        <div class="col-sm">
+          <p><a class="btn btn-primary" onclick="sendPushNotification()" role="button">Send Notification</a></p> 
+        </div>
+        <div class="col-sm">
+          
+        </div>
+      </div>
+      
+      
+    </div>
+
+    <!-- Optional JavaScript; choose one of the two! -->
+
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      function sendPushNotification() {   
+        var e = document.getElementById("notificationType");
+        postData(`http:\\\\localhost:3000\\notification`, { notificationType: e.value })
+        .then(data => {
+          console.log(data); // JSON data parsed by `data.json()` call
+          alert(`The notification sent`); 
+        });
+      } 
+      
+      async function postData(url = '', data = {}) {
+        // Default options are marked with *
+        const response = await fetch(url, {
+          method: 'POST', // *GET, POST, PUT, DELETE, etc.
+          mode: 'cors', // no-cors, *cors, same-origin
+          cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+          credentials: 'same-origin', // include, *same-origin, omit
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          redirect: 'follow', // manual, *follow, error
+          referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+          body: JSON.stringify(data) // body data type must match "Content-Type" header
+        });
+        return response.json(); // parses JSON response into native JavaScript objects
+      }
+      
+    </script>
+  </body>
+</html>

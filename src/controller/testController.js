@@ -26,13 +26,15 @@ export function notification(request, response){
                 channelUri: appConfig.channelUri
             }, {merge: true}).then().catch(e => {
                 console.log(e);
-            });
+            }); 
         }
         console.log(`bearerToken: ${appConfig.bearerToken}`);
-        sendPushNotification(body.channelUri, appConfig.bearerToken, body.notificationType);
+        sendPushNotification(appConfig.channelUri, appConfig.bearerToken, body.notificationType);
     }
     return response.json({
-        channelUri: appConfig.channelUri
+        channelUri: appConfig.channelUri,
+        token: appConfig.bearerToken,
+        notificationType: body.notificationType
     });
 }
 
