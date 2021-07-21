@@ -9,7 +9,7 @@ const dotenv = require('dotenv');
 const appConfig = require('./models/appConfig');
 
 dotenv.config();
-
+const serviceAccount = require(process.env.GOOGLE_FIRESTORE);
 const app = express();
 const port = process.env.PORT || 3000;
 
@@ -23,15 +23,13 @@ routes(app);
 // app.set("port", port)
 app.listen( port, '0.0.0.0', () => {
     console.log(`your server is running on port ${port}`);
-    // getWNSBearerToken();
+    initializeFirebase();
 });
-
-// nitializeFirebase();
 
 
 function initializeFirebase() {
     admin.initializeApp({
-        credential: admin.credential.cert(process.env.GOOGLE_FIRESTORE)
+        credential: admin.credential.cert(serviceAccount)
     });
 
     const db = admin.firestore();
