@@ -3,3 +3,4 @@ build/
 src/.env
 src/robox-8fa7c-4a8bb587e43c.json
 .env
+serviceAccount.json
