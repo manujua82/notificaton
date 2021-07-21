@@ -29,7 +29,7 @@ export function notification(request, response){
             });
         }
         console.log(`bearerToken: ${appConfig.bearerToken}`);
-        sendPushNotification(body.channelUri, appConfig.bearerToken);
+        sendPushNotification(body.channelUri, appConfig.bearerToken, body.notificationType);
     }
     return response.json({
         channelUri: appConfig.channelUri
