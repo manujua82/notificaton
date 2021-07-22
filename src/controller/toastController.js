@@ -31,8 +31,8 @@ function getToastMessage(type){
             });
         default:
             return createTemplateMessage({
-                message: "something awesome is happening", 
-                imageUrl: ""     
+                message: "Big Inning is About to Start!", 
+                time: "7:00 PM"
             });
     }
 }
